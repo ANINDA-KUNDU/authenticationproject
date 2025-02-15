@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static  %}
+{% block title   %}register{% endblock  %}
+{% block content %}
+<p>This is Register Page</p>
+{% if messages  %}
+    {%  for message in messages   %}
+        {%  if message.tags == 'error'  %}
+        <centre><h1 style = "color: firebrick">{{message}}</h1></centre>
+        {% else  %}
+        <centre><h1 style = "color: dodgerblue">{{message}}</h1></centre>
+        {%  endif %}
+    {%  endfor  %}
+{% endif   %}
+<form method = "POST">
+    {% csrf_token %}
+    <div>
+        <lable>First Name</lable>
+        <input type = "text" name ="first_name">
+    </div>
+    <div>
+        <lable>Last Name</lable>
+        <input type = "text" name = "last_name">
+    </div>
+    <div>
+        <lable>Username</lable>
+        <input type = "text" name = "username">
+    </div>
+    <div>
+        <lable>Email</lable>
+        <input type = "email" name = "email">
+    </div>
+    <div>
+        <lable>Password</lable>
+        <input type = "password" name = "password">
+    </div>
+    <button type = "submit">Register</button>
+</form>
+<p>Would you like to Login<a href = "{% url 'login'  %}">Login</a></p>
+<p>Would you like to change your password<a href = "{% url 'forgot-password'  %}">Forgot Password</a></p>
+
+{% endblock   %}
