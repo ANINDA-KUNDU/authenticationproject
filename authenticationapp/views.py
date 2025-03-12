@@ -78,7 +78,7 @@ def ForgotPassword(request):
             new_password_reset.save()
             
             password_reset_url = reverse( 'reset-password', kwargs = {'reset_id': new_password_reset.reset_id})
-            full_password_reset_url = f'{request.scheme}: // {request.get_host()}{password_reset_url}'
+            full_password_reset_url = f'{request.scheme}://{request.get_host()}{password_reset_url}'
             
             email_body = f'Reset your password using the link below:\n\n\n{full_password_reset_url}'
             
@@ -144,10 +144,10 @@ def ResetPassword(request, reset_id):
                 return redirect('reset-password', reset_id=reset_id)
 
     
-    except ResetPassword.DoesNotExist:
+    except PasswordReset.DoesNotExist:
         
         # redirect to forgot password page if code does not exist
         messages.error(request, 'Invalid reset id')
         return redirect('forgot-password')
 
-    return render(request, 'password-reset')
+    return render(request, 'password-reset.html')
